@@ -29,6 +29,7 @@ function App() {
 
   return (
     <>
+      <h1>TODO LIST TS</h1>
       <Container fixed className='container' sx={{ display: 'flex', flexDirection: 'column'}}>
         
         <Box className='box'>
@@ -37,6 +38,8 @@ function App() {
             <Button variant="contained" onClick={handleAdd}>Adicionar</Button>
           </form>
         </Box>
+
+      {/* //TODO Talvez adicionar outra lista acima de concluidos e quando marcar ela sobe para ela (apaga dessa e é adicionada na outra, caso voce não consiga elaborar a lógica) */}
 
         <Box className='ContainerList'>
           <Card tasks={tasks} onDelete={handleDelete} />

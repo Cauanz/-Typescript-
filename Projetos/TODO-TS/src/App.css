@@ -13,6 +13,11 @@ body {
    display: flex;
    align-items: center;
    justify-content: center;
+   flex-direction: column;
+}
+
+#root h1 {
+   text-shadow: 0 0 10px #00f, 0 0 20px #00f, 0 0 30px #00f, 0 0 40px #00f, 0 0 50px #00f, 0 0 60px #00f;
 }
 
 .container {
@@ -38,4 +43,8 @@ body {
 .ContainerList {
    height: auto;
    width: 50%;
+}
+
+.outlined-basic {
+   color: #fff;
 }
