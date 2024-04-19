@@ -45,6 +45,8 @@ body {
    width: 50%;
 }
 
-.outlined-basic {
-   color: #fff;
+.ContainerList h2, .ContainerListDone h2 {
+   text-align: center;
+   color: #000;
 }
+

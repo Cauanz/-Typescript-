@@ -7,25 +7,55 @@ import Card from './Card';
 import { useState } from 'react';
 import './App.css'
 
+interface Task {
+  description: string,
+  concluded: boolean
+}
+
+
 function App() {
   
-  const [tasks, setTasks] = useState<string[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [value, setValue] = useState('');
+  const [dones, setDone] = useState<Task[]>([]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
-
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
-    setTasks((prevItems: string[]) => [...prevItems, value]);
+
+    const task: Task = {
+      description: value,
+      concluded: false
+    }
+
+    setTasks((prevTasks) => [...prevTasks, task]);
     setValue('')
   };
 
-  const handleDelete = (task: string) => {
-    setTasks(tasks.filter((item => item !== task)))
+  const handleDelete = (task: Task) => {
+    if(tasks.includes(task)){
+      setTasks(tasks.filter(item => item !== task))
+    } else {
+      setDone(dones.filter(item => item != task));
+    }
   }
+  
+  const handleCompleted = (task: Task) => {
+
+    if(task.concluded){
+      setDone(dones.filter((item) => item !== task))
+      setTasks((prevTasks) => [...prevTasks, task]);
+      task.concluded = false;
+    } else {
+      setTasks(tasks.filter((item) => item !== task))
+      setDone((prevDones) => [...prevDones, task]);
+      task.concluded = true;
+    }
+  }
+
 
   return (
     <>
@@ -39,10 +69,14 @@ function App() {
           </form>
         </Box>
 
-      {/* //TODO Talvez adicionar outra lista acima de concluidos e quando marcar ela sobe para ela (apaga dessa e é adicionada na outra, caso voce não consiga elaborar a lógica) */}
+      <Box className='ContainerListDone'>
+          <h2>Tarefas concluidas</h2>
+          <Card tasks={dones} onDelete={handleDelete} onCompleted={handleCompleted} />
+        </Box>
 
         <Box className='ContainerList'>
-          <Card tasks={tasks} onDelete={handleDelete} />
+          <h2>Tarefas</h2>
+          <Card tasks={tasks} onDelete={handleDelete} onCompleted={handleCompleted} />
         </Box>
       </Container>
     </>
